@@ -1,0 +1,34 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark justify-content-between" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/"><font color="white">Home</font></a>
+        <a class="nav-item nav-link" routerLink="/goals"><font color="white">Goals</font></a>
+        <a class="nav-item nav-link" routerLink="/games"><font color="white">Games</font></a>
+        <a class="nav-item nav-link" routerLink="/usersettings"><font color="white">Account Settings</font></a>
+    </div>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" (click)="logout()"><font color="#ed335f">Logout</font></a>
+    </div>
+</nav>
+
+<!-- main app container -->
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <alert></alert>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- credits -->
+<div class="text-center">
+    <p>
+        V0.1 - Hackforce 1
+    </p>
+    <p>
+        <img src="/images/Bankie.png" alt="Bankie" style="width:20%;height:20%;">
+    </p>
+</div>
