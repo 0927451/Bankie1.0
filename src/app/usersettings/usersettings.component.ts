@@ -3,11 +3,15 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
+import { User, Username } from '@/_models';
 import { AlertService, UserService, AuthenticationService } from '@/_services';
 
 @Component({ templateUrl: 'usersettings.component.html' })
 export class UsersettingsComponent implements OnInit {
-    changeForm;
+    currentUser: User;
+    currentUsername: Username;
+    changeForm: FormGroup;
+    users = [];
     loading = false;
     submitted = false;
 
@@ -17,20 +21,30 @@ export class UsersettingsComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
-    ){}
+    ){
+        this.currentUser = this.authenticationService.currentUserValue;
+        this.currentUsername = this.authenticationService.currentUsernameValue;
+    }
+
+    logout() {
+        this.authenticationService.logout()
+        this.router.navigate(['/login'])
+    }
 
     ngOnInit() {
         this.changeForm = this.formBuilder.group({
             username: ['', [Validators.required, Validators.minLength(6)]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-        });
+            balance: ['', Validators.required],
+            check: [false, Validators.requiredTrue]
+        })
     }
 
     // convenience getter for easy access to form fields
-    get cU() { return this.changeForm.controls; }
+    get f() { return this.changeForm.controls; }
 
 
-    onSubmitChangeUser() {
+    onSubmit() {
         this.submitted = true;
 
         // reset alerts on submit
@@ -42,13 +56,12 @@ export class UsersettingsComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.changeuser(this.changeForm.value)
+        this.userService.changeuser(this.currentUser, this.changeForm.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Account changed', true);
-                    this.authenticationService.logout();
-                    this.router.navigate(['/login']);
+                    this.alertService.success('Account info change successful', true);
+                    this.logout()
                 },
                 error => {
                     this.alertService.error(error);
@@ -56,23 +69,17 @@ export class UsersettingsComponent implements OnInit {
                 });
     }
 
-/*    onSubmitDelete() {
-        this.submitted = true;
-
-        // reset alerts on submit
-        this.alertService.clear();
-
-        this.loading = true;
-        this.userService.delete(authenticationService.userid)
+    deleteUser() {
+        this.userService.delete(this.currentUser.userId)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Delete Succesful', true);
-                    this.router.navigate(['/login']);
+                    this.alertService.success('Account deletion successful, Ask your bank for a new piggyId', true);
+                    this.logout()
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
-                });        
-    }*/
+                });
+    }
 }

@@ -17,10 +17,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="piggyid">Piggy ID</label>
-        <input type="text" formControlName="piggyid" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.piggyid.errors }" />
-        <div *ngIf="submitted && f.piggyid.errors" class="invalid-feedback">
-            <div *ngIf="f.piggyid.errors.required">Piggy ID is required, you should have received it with your PiggyBank</div>
+        <label for="piggyId">Piggy ID</label>
+        <input type="text" formControlName="piggyId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.piggyId.errors }" />
+        <div *ngIf="submitted && f.piggyId.errors" class="invalid-feedback">
+            <div *ngIf="f.piggyId.errors.required">Piggy ID is required, you should have received it with your PiggyBank</div>
         </div>
     </div>
     <div class="form-group">

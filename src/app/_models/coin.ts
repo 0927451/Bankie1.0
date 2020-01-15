@@ -1,13 +1,7 @@
-import {Deserializable} from './deserializable.model';
-
-export class Coin implements Deserializable{
+export class Coin {
     coinId: number;
     timestamp: string
     coinType: number
-
-    deserialize(input: any): this {
-        return Object.assign(this, input);
-    }
 }
 
 

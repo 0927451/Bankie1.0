@@ -16,7 +16,7 @@ export class GoalService {
         {
             "name": goal.name,
             "amount": goal.amount,
-            "currentAmount": goal.currentamount
+            "currentAmount": goal.currentAmount
         }
         );
     }
@@ -27,7 +27,7 @@ export class GoalService {
             "goalId": goal.goalId,
             "name": goal.name,
             "amount": goal.amount,
-            "currentAmount": goal.currentamount
+            "currentAmount": goal.currentAmount
         }
         );
     }

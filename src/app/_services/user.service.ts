@@ -17,17 +17,17 @@ export class UserService {
         );
     }
 
-    changeuser(user: User) {
+    changeuser(user: User, user2: User) {
         return this.http.put<any>(`https://${config.apiUrl}/api/User/SetUser/${user.userId}`, 
         {
-            "username": user.username,
-            "password": user.password,
-            "balance": user.balance
+            "username": user2.username,
+            "password": user2.password,
+            "balance": user2.balance
         }
         );
     }
 
-    delete(id: number) {
+    delete(id: string) {
         return this.http.delete(`https://${config.apiUrl}/api/User/DeleteUser/${id}`);
     }
 }

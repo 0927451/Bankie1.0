@@ -3,49 +3,53 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { User } from '@/_models';
+import { User, Username } from '@/_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
+    private currentUsernameSubject: BehaviorSubject<Username>;
     public currentUser: Observable<User>;
-    //parsedJson: any;
+    public currentUsername: Observable<Username>;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+
+        this.currentUsernameSubject = new BehaviorSubject<Username>(JSON.parse(localStorage.getItem('currentUsername')));
+        this.currentUsername = this.currentUsernameSubject.asObservable();
     }
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
 
-    setUsername(username){
-        localStorage.setItem('currentUsername', JSON.stringify(username));
+    public get currentUsernameValue(): Username {
+        return this.currentUsernameSubject.value;
     }
 
     login(username, password) {
-//        return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { "username": username, "password": password })
-        
-        return this.http.post<any>(`https://${config.apiUrl}/api/User/LoginUser`,
+        return this.http.post(`https://${config.apiUrl}/api/User/LoginUser`,
         {
             "username": username,
             "password": password 
-        }, {headers: {'Content-Type': 'application/json'}})
-            .pipe(map(user => {
-                // store user  in local storage to keep user logged in between page refreshes
-                // localStorage.setItem('currentUser', JSON.stringify(user));
-                //this.parsedJson = JSON.parse(user)
-                //console.log(this.parsedJson)
-                console.log(user.User)
-                this.currentUserSubject.next(user);
-                return user;
-            }));
+        }, {headers: {'Content-Type': 'application/json'}})        
+          .pipe(map(user => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('currentUsername', JSON.stringify(username));
+                console.log(user);
+                console.log(username);
+                //this.currentUserSubject.next(user);
+                return [user, username];
+            } 
+            ));
     }
 
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUsername');
         this.currentUserSubject.next(null);
     }
 }

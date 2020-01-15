@@ -1,24 +1,15 @@
-﻿import {Goal} from "./goal"
-import {Coin} from "./coin"
-import {Deserializable} from "./deserializable.model"
+﻿import { Goal } from "./goal";
+import { Coin } from "./coin";
 
-export class User implements Deserializable{
+export class User {
     userId: string;
     piggyId: string;
     balance: number;
-    goals: Goal[];
-    coins: Coin[];
+    goals: Goal;
+    coins: Coin;    
     username: string;
     password: string;
-
-    deserialize(input: any): this {
-      Object.assign(this, input);
-
-      this.goals = input.goals.map(goal => new Goal().deserialize(goal));
-      this.coins = input.coins.map(coin => new Coin().deserialize(coin));
-      
-      return this;
-    }
+    token: string;
 }
 
 /*

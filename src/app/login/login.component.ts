@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+
 import { AlertService, AuthenticationService } from '@/_services';
 
 @Component({ templateUrl: 'login.component.html' })
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
-    public onSubmit() {
+    onSubmit() {
         this.submitted = true;
 
         // reset alerts on submit
@@ -49,12 +50,14 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.setUsername(this.f.username.value)
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.alertService.success('login successful',true);
+                    location.reload()
+                    //this.router.navigate(['/home'])
+                    //this.router.navigate([this.returnUrl]);
                 },
                 error => {
                     this.alertService.error(error);
@@ -62,4 +65,3 @@ export class LoginComponent implements OnInit {
                 });
     }
 }
-//

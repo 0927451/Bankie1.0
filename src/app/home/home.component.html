@@ -1,15 +1,4 @@
-﻿<h1>Hi !</h1>
+﻿<h1>Hi {{currentUsername}}!</h1>
 <p>You are logged in to the Bankie Web-App</p>
-<h3>All registered users:</h3>
-Username, Password, (ID, PiggyID)
-<ul>
-    <li *ngFor="let user of users">
-        {{user.username}}, {{user.password}}, ({{user.id}}, {{user.piggyid}})
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>
+<h3>Current balance: €{{currentUser.balance}}</h3>
 
-Current User token
-<ul>
-    <li>{{currentUser.token}}</li>
-</ul>

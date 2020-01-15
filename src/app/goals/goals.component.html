@@ -1,3 +1,57 @@
-<h1>Hi {{currentUser.username}}!</h1>
+<h1>Hi {{currentUsername}}!</h1>
 <p>Your saving goals are shown down below</p>
+<h3>Current balance: €{{currentUser.balance}}</h3>
 <h3>Saving Goals:</h3>
+<p>{{currentUser.goals}}</p>
+
+<h3>Create a new Goal:</h3>
+
+
+<form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="name">Goal Name:</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">goal name is required</div>
+            <div *ngIf="f.name.errors.minlength">goal name must be at least 6 characters</div>            
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amount">Target: €</label>
+        <input type="number" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+        <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+            <div *ngIf="f.amount.errors.required">Target is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="currentAmount">Already saved: €</label>
+        <input type="number" formControlName="currentAmount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.currentAmount.errors }" />
+        <div *ngIf="submitted && f.currentAmount.errors" class="invalid-feedback">
+            <div *ngIf="f.currentAmount.errors.required">If you haven't saved anything yet, please enter 0, else, enter the amount already saved</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Create Goal
+        </button>
+    </div>
+</form>
+
+<h3>Delete a Goal:</h3>
+<form [formGroup]="delGoalForm" (ngSubmit)="onDelete()">
+    <div class="form-group2">
+        <label for="goalId">Goal Id:</label>
+        <input type="number" formControlName="goalId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.goalId.errors }" />
+        <div *ngIf="submitted && f.goalId.errors" class="invalid-feedback">
+            <div *ngIf="f.goalId.errors.required">goal Id is required</div>
+        </div>
+    </div>
+    <br>
+    <div class="form-group2">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Delete goal
+        </button>
+    </div>
+</form>

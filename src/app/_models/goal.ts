@@ -1,14 +1,8 @@
-import {Deserializable} from './deserializable.model';
-
-export class Goal implements Deserializable {
+export class Goal {
     goalId: number;
     name: string;
     amount: number;
-    currentamount: number;
-
-    deserialize(input: any): this {
-        return Object.assign(this, input);
-    }
+    currentAmount: number;
 }
 
 
