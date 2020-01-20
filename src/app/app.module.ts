@@ -16,6 +16,7 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { AlertComponent } from './_components';
+import { HistoryComponent } from './history';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { AlertComponent } from './_components';
         AppComponent,
         UsersettingsComponent,
         GamesComponent,
-        GoalsComponent,        
+        GoalsComponent,
+        HistoryComponent,        
         HomeComponent,
         LoginComponent,
         RegisterComponent,

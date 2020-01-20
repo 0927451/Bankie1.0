@@ -1,0 +1,25 @@
+<h1>History</h1>
+
+<!-- 
+<li *ngFor="let coin of coinsHistory">
+  <span>
+    <b>Id: </b>{{ coin.coinId }} <b>Timestamp:</b> {{ coin.timestamp }}
+    <b>Cointype:</b> {{ coin.coinType }}
+  </span>
+</li> -->
+
+
+<table *ngIf="coinsHistory"> 
+  <tr>
+    <th>Id</th>
+    <th>Timestamp</th>
+    <th>Cointype</th>
+  </tr>
+  <tr *ngFor="let coin of coinsHistory" >
+    <td >{{coin.coinId}}</td >
+    <td >{{coin.timestamp}}</td >
+    <td >{{coin.coinType}}</td >
+  </tr>
+
+
+</table> 
