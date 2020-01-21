@@ -24,10 +24,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="agecheck">I am 16 years or older, or have consent from my parent(s) or guardian(s)</label>
+        <label for="agecheck">I am 16 years or older, or have consent from my parent(s) or guardian(s) <b>and</b> agree to the <a href="https://drive.google.com/file/d/1RKl5kzkaT26emRhnV3NSkYnJ6sD5SUKB/view?usp=sharing">privacy policy</a></label>
         <input type="checkbox" formControlName="agecheck" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.agecheck.errors }" />
         <div *ngIf="submitted && f.agecheck.errors" class="invalid-feedback">
-            <div *ngIf="f.agecheck.errors.required">You need to be 16 years or older, or have consent from your parent(s) or guardian(s)</div>
+            <div *ngIf="f.agecheck.errors.required">You need to be 16 years or older, or have consent from your parent(s) or guardian(s) and agree to the privacy policy</div>
         </div>
     </div>
     <div class="form-group">

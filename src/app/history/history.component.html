@@ -1,15 +1,10 @@
-<h1>History</h1>
+<h1>History!</h1>
+<p>These are the last coins you saved in your PiggyBank</p>
+<hr width=”100%”> 
+<h3>Current balance: €{{currentUser.balance}}</h3>
+<hr width=”100%”> 
 
-<!-- 
-<li *ngFor="let coin of coinsHistory">
-  <span>
-    <b>Id: </b>{{ coin.coinId }} <b>Timestamp:</b> {{ coin.timestamp }}
-    <b>Cointype:</b> {{ coin.coinType }}
-  </span>
-</li> -->
-
-
-<table *ngIf="coinsHistory"> 
+<table style="width:100%" *ngIf="coinsHistory"> 
   <tr>
     <th>Id</th>
     <th>Timestamp</th>
@@ -20,6 +15,24 @@
     <td >{{coin.timestamp}}</td >
     <td >{{coin.coinType}}</td >
   </tr>
+</table>
 
+<hr width=”100%”> 
+<h3>Delete a coin:</h3>
+<form [formGroup]="delCoinForm" (ngSubmit)="onDelete()">
+    <div class="form-group2">
+        <label for="coinId">Coin Id:</label>
+        <input type="number" formControlName="coinId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.coinId.errors }" />
+        <div *ngIf="submitted && f.coinId.errors" class="invalid-feedback">
+            <div *ngIf="f.coinId.errors.required">coin Id is required</div>
+        </div>
+    </div>
+    <br>
+    <div class="form-group2">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Delete coin
+        </button>
+    </div>
+</form>
 
-</table> 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { map } from 'rxjs/operators';
 import { User, Goal } from '@/_models';
 
 @Injectable({ providedIn: 'root' })
@@ -8,7 +8,12 @@ export class GoalService {
     constructor(private http: HttpClient) { }
 
     getgoals(user: User) {
-        return this.http.get<any>(`https://${config.apiUrl}/api/Goal/GetUserGoals/${user.userId}`);
+        return this.http.get<any>(`https://${config.apiUrl}/api/Goal/GetUserGoals/${user.userId}`)
+        .pipe(map(goal => {
+            localStorage.setItem('Goal', JSON.stringify(goal));
+            console.log(goal);
+            return goal;
+        }));
     }
 
     creategoal(user: User, goal: Goal) {

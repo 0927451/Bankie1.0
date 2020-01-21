@@ -1,9 +1,24 @@
-<h1>Hi {{currentUsername}}!</h1>
+<h1>Goals!</h1>
 <p>Your saving goals are shown down below</p>
+<hr width=”100%”> 
 <h3>Current balance: €{{currentUser.balance}}</h3>
+<hr width=”100%”> 
 <h3>Saving Goals:</h3>
-<p>{{currentUser.goals}}</p>
-
+<table style="width:100%" *ngIf="goals"> 
+    <tr>
+        <th>goalId</th>
+        <th>Goal Name</th>
+        <th>Already Saved</th>
+        <th>Target</th>
+    </tr>
+    <tr *ngFor="let goal of goals" >
+        <td>{{goal.goalId}}</td>
+        <td>{{goal.name}}</td>
+        <td>{{goal.currentAmount}}</td>
+        <td>{{goal.amount}}</td>        
+    </tr>
+</table> 
+<hr width=”100%”> 
 <h3>Create a new Goal:</h3>
 
 
@@ -13,7 +28,8 @@
         <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
             <div *ngIf="f.name.errors.required">goal name is required</div>
-            <div *ngIf="f.name.errors.minlength">goal name must be at least 6 characters</div>            
+            <div *ngIf="f.name.errors.minlength">goal name must be at least 4 characters and a maximum of 20</div>   
+            <div *ngIf="f.name.errors.maxlength">goal name must be at least 4 characters and a maximum of 20</div>   
         </div>
     </div>
     <div class="form-group">
@@ -37,7 +53,7 @@
         </button>
     </div>
 </form>
-
+<hr width=”100%”> 
 <h3>Delete a Goal:</h3>
 <form [formGroup]="delGoalForm" (ngSubmit)="onDelete()">
     <div class="form-group2">

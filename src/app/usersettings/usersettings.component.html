@@ -1,5 +1,6 @@
 <h1>Hi {{currentUsername}}!</h1>
 <p>You can edit your account settings here:</p>
+<hr width=”100%”> 
 
 <form [formGroup]="changeForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -40,6 +41,8 @@
         </button>
     </div>
 </form>
+<hr width=”100%”> 
+
 <h3>Delete my Bankie Account:</h3>
 <p><b>IMPORTANT:</b> this makes your bankie account unretrievable and it deletes your PiggyID.
 For a new PiggyID, contact support.</p>

@@ -4,7 +4,7 @@ import { first, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { User, Goal, Username } from '@/_models';
-import { AlertService, UserService, AuthenticationService, GoalService } from '@/_services';
+import { AlertService, AuthenticationService, GoalService } from '@/_services';
 
 @Component({ templateUrl: 'goals.component.html' })
 export class GoalsComponent implements OnInit {
@@ -12,13 +12,15 @@ export class GoalsComponent implements OnInit {
     currentUsername: Username;
     goalForm: FormGroup;
     delGoalForm: FormGroup;
+
     users = [];
+    goals:Goal[];
+
     loading = false;
     submitted = false;
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router,
         private authenticationService: AuthenticationService,
         private goalService: GoalService,
         private alertService: AlertService
@@ -29,17 +31,14 @@ export class GoalsComponent implements OnInit {
 
     ngOnInit() {
         this.goalForm = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.minLength(6)]],
+            name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
             amount: ['', [Validators.required]],
             currentAmount: ['', Validators.required]
         });
 
-        this.goalService.getgoals(this.currentUser)
-            .pipe(map(goal => {
-                localStorage.setItem('Goal', JSON.stringify(goal));
-                console.log(goal);
-                return goal;
-            }))
+        this.goalService.getgoals(this.currentUser).subscribe(data => {
+            this.goals = data;
+        });
         
         this.delGoalForm = this.formBuilder.group({
             goalId: ['', [Validators.required]]
@@ -67,6 +66,7 @@ export class GoalsComponent implements OnInit {
                 data => {
                     this.alertService.success('Created Goal', true);
                     this.loading = false;
+                    location.reload()
                 },
                 error => {
                     this.alertService.error(error);
@@ -92,6 +92,7 @@ export class GoalsComponent implements OnInit {
                 data => {
                     this.alertService.success('Deleted Goal', true);
                     this.loading = false;
+                    location.reload()
                 },
                 error => {
                     this.alertService.error(error);
