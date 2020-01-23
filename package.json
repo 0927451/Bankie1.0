@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/GreenTallTower/bankie_web-app.git"
+        "url": "https://https://github.com/0927451/Bankie1.0"
     },
     "scripts": {
         "build": "webpack --mode production",
