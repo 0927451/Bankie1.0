@@ -7,7 +7,7 @@
     },
     "scripts": {
         "build": "webpack --mode production",
-        "start": "webpack-dev-server --https --mode production --host 192.168.2.16 --open"
+        "start": "webpack-dev-server --https --mode production --host 145.24.222.166 --open"
     },
     "dependencies": {
         "@angular/common": "^8.0.0",
